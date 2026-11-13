@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* Dark theme (default). Values are "R G B" so opacity modifiers like bg-violet/90 still work. */
+    :root {
+        --ink: 11 15 26;
+        --surface: 18 26 46;
+        --surface-raised: 26 36 62;
+        --line: 42 53 82;
+        --hi: 232 236 247;
+        --lo: 154 166 194;
+        --violet: 124 140 255;
+        --mint: 45 212 191;
+        --coral: 248 113 133;
+        --amber: 251 191 36;
+        color-scheme: dark;
+    }
+    /* Light theme: switched by adding class "light" to <html> */
+    :root.light {
+        --ink: 243 245 255;
+        --surface: 255 255 255;
+        --surface-raised: 238 241 252;
+        --line: 218 224 242;
+        --hi: 18 26 51;
+        --lo: 79 91 122;
+        --violet: 79 70 229;
+        --mint: 15 118 110;
+        --coral: 190 18 60;
+        --amber: 180 83 9;
+        color-scheme: light;
+    }
+    body {
+        @apply bg-ink text-hi font-sans antialiased;
+    }
+    button:focus-visible,
+    a:focus-visible,
+    select:focus-visible {
+        @apply outline-none ring-2 ring-violet ring-offset-2 ring-offset-ink;
+    }
+}
+
+@layer components {
+    .app-bg {
+        background-image:
+            radial-gradient(700px 380px at 92% -5%, rgb(var(--violet) / 0.2), transparent),
+            radial-gradient(560px 360px at -5% 105%, rgb(var(--mint) / 0.12), transparent);
+    }
+    .card {
+        @apply bg-surface border border-line rounded-2xl shadow-lg shadow-black/10;
+    }
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-xl border border-line bg-surface text-hi text-sm font-semibold transition hover:border-violet disabled:opacity-40 disabled:cursor-not-allowed;
+    }
+    .btn-grad {
+        @apply border-transparent text-ink;
+        background-image: linear-gradient(135deg, rgb(var(--violet)), rgb(var(--mint)));
+    }
+    .btn-grad:hover:not(:disabled) {
+        filter: brightness(1.08);
+    }
+    .inp {
+        @apply w-full min-h-[48px] px-4 rounded-xl border border-line bg-ink text-hi text-base font-sans placeholder:text-lo/70 focus:outline-none focus:ring-2 focus:ring-violet focus:border-violet;
+    }
+    .chip {
+        @apply inline-flex items-center px-3 py-1 rounded-full border border-line text-xs font-semibold text-lo;
+    }
+    .logo {
+        @apply inline-grid place-items-center w-9 h-9 rounded-xl font-mono font-bold text-xs text-ink;
+        background-image: linear-gradient(135deg, rgb(var(--violet)), rgb(var(--mint)));
+    }
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+.animate-blink {
+    animation: blink 1s step-start infinite;
+}
